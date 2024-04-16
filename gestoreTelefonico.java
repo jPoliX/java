@@ -118,7 +118,7 @@ public class Main {
         return contatto;
     }
     public static Persona[] CancellaContatto(Persona[] gestore, Scanner tastiera, int contacontatti) {
-        Persona contatto = new Persona();
+       boolean trovato=false;
         String nome;
         String cognome;
         int numero;
@@ -132,6 +132,7 @@ public class Main {
             cognome = tastiera.nextLine();
             for (int i = 0; i < contacontatti; i++) {
                 if (gestore[i].nome.equals(nome) && gestore[i].cognome.equals(cognome)) {
+                    trovato=true;
                     for (int j = i; j < contacontatti - 1; j++) {
                         gestore[j] = gestore[j + 1];
                     }
