@@ -10,7 +10,7 @@ public class Main {
         boolean uscita = false;
         Scanner tastiera = new Scanner(System.in);
         Persona[] gestore = new Persona[nContratti];
-        String[] opzioni = {"Gestore telefonico", "1-Inserimento", "2-Visualizza", "3-Ricerca", "4-Numero di telefono", "5-Elimina", "6-Fine"};
+        String[] opzioni = {"Gestore telefonico", "1-Inserimento", "2-Visualizza", "3-Ricerca", "4-Numero di telefono", "5-Elimina","6-Modifica", "7-Fine"};
         do {
 
             switch (menu(opzioni, tastiera)) {
@@ -71,6 +71,16 @@ public class Main {
                     }
                     break;
                 case 6:
+                    if(contacontatti>0){
+                        Persona Supporto = LeggiContatto(false, tastiera);
+                        int posizione=posNumero(gestore,Supporto,contacontatti);
+                        if(posNumero(gestore,Supporto,contacontatti)!=-1){
+                            System.out.println("inserisci il numero di telefono");
+                            gestore[posizione].numDiTelefono=tastiera.nextLine();
+                        }
+                    }
+                    break;
+                case 7:
                     uscita = true;
 
                     break;
@@ -166,8 +176,15 @@ public class Main {
         }
         return -1;
     }
-
-
+    
+ public static int posNumero(Persona[] gestore, Persona NuovoContatto, int contacontatti) {
+        for (int i = 0; i < contacontatti; i++) {
+            if ((gestore[i].nome.equals(NuovoContatto.nome)) && (gestore[i].cognome.equals(NuovoContatto.cognome))) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
 
 
