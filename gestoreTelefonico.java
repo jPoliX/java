@@ -12,7 +12,6 @@ public class Main {
         Persona[] gestore = new Persona[nContratti];
         String[] opzioni = {"Gestore telefonico", "1-Inserimento", "2-Visualizza", "3-Ricerca", "4-Numero di telefono", "5-Elimina","6-Modifica", "7-Fine"};
         do {
-
             switch (menu(opzioni, tastiera)) {
                 case 1:
                     if (contacontatti < nContratti) {
@@ -65,10 +64,17 @@ public class Main {
                     break;
                 case 5:
                     if (contacontatti > 0) {
-                        CancellaContatto(gestore, tastiera, contacontatti);
+                        Persona Supporto = LeggiContatto(false, tastiera);
+                        int posizione = posNumero(gestore, Supporto,contacontatti);
+                        if(posizione != -1){
+                            contacontatti = cancellaContatto(gestore,posizione,contacontatti);
+                        }else{
+                            System.out.println("Non è presente");
+                        }
                     } else {
-                        System.out.println("non ci sono contatti da eliminare");
+                        System.out.println("Non ci sono contatti da visualizzare");
                     }
+                    ;
                     break;
                 case 6:
                     if(contacontatti>0){
@@ -93,8 +99,6 @@ public class Main {
 
     public static Persona LeggiContatto(boolean telSi, Scanner tastiera) {
         Persona contatto = new Persona();
-
-
         System.out.println("Inserici il nome");
         contatto.nome = tastiera.nextLine();
         System.out.println("Inserici il cognome");
@@ -117,45 +121,18 @@ public class Main {
 
         return contatto;
     }
-    public static Persona[] CancellaContatto(Persona[] gestore, Scanner tastiera, int contacontatti) {
-       boolean trovato=false;
-        String nome;
-        String cognome;
-        int numero;
-        String test;
-        System.out.println("Vuoi cancellare dal numero o da nome e cognome?");
-        test = tastiera.nextLine();
-        if (test.equals("nome")) {
-            System.out.println("inserisci il nome da eliminare");
-            nome = tastiera.nextLine();
-            System.out.println("inserisci il cognome da eliminare");
-            cognome = tastiera.nextLine();
-            for (int i = 0; i < contacontatti; i++) {
-                if (gestore[i].nome.equals(nome) && gestore[i].cognome.equals(cognome)) {
-                    trovato=true;
-                    for (int j = i; j < contacontatti - 1; j++) {
-                        gestore[j] = gestore[j + 1];
-                    }
-                }
-            }
+    public static int cancellaContatto(Persona[] gestore,int posizione,int contacontatti){
+
+        if(posizione != gestore.length) {
+            for (int i = posizione; i < contacontatti - 1; i++)
+                gestore[i] = gestore[i + 1];
         }
-        if (test.equals("numero")) {
-            System.out.println("Inserisci il numero da eliminare:");
-            numero = tastiera.nextInt();
-            for (int i = 0; i < contacontatti; i++) {
-                if (gestore[i].numDiTelefono.equals(numero)) {
-                    for (int j = i; j < contacontatti - 1; j++) {
-                        gestore[j] = gestore[j + 1];
-                    }
-                }
-            }
-        }
-        return gestore;
+        return --contacontatti;
     }
+
     public static void Visualizza(Persona gestore[], int contacontatti) {
         for (int i = 0; i < contacontatti; i++) {
             System.out.println(gestore[i].anagrafica());
-
         }
     }
 
@@ -177,8 +154,8 @@ public class Main {
         }
         return -1;
     }
-    
- public static int posNumero(Persona[] gestore, Persona NuovoContatto, int contacontatti) {
+
+    public static int posNumero(Persona[] gestore, Persona NuovoContatto, int contacontatti) {
         for (int i = 0; i < contacontatti; i++) {
             if ((gestore[i].nome.equals(NuovoContatto.nome)) && (gestore[i].cognome.equals(NuovoContatto.cognome))) {
                 return i;
@@ -187,7 +164,6 @@ public class Main {
         return -1;
     }
 }
-
 
 
 CLASSE PERSONA
