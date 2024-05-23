@@ -167,14 +167,7 @@ public class Main {
         return false;
     }
 
-    public static int CercaContatto(Persona[] gestore, Persona NuovoContatto, int contacontatti) {
-        for (int i = 0; i < contacontatti; i++) {
-            if ((gestore[i].nome.equals(NuovoContatto.nome)) && (gestore[i].cognome.equals(NuovoContatto.cognome))) {
-                return i;
-            }
-        }
-        return -1;
-    }
+  
 
     public static int posNumero(Persona[] gestore, Persona NuovoContatto, int contacontatti) {
         for (int i = 0; i < contacontatti; i++) {
